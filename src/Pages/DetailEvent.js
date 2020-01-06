@@ -18,7 +18,7 @@ import ReactHtmlParser, {
   processNodes,
   convertNodeToElement,
   htmlparser2
-} from "react-html-parser"
+} from "react-html-parser";
 
 class DetailEvent extends Component {
   state = {
@@ -72,126 +72,94 @@ class DetailEvent extends Component {
   componentDidMount() {
     const { id } = this.props.match.params;
     this.props.dispatch(getEventById(id));
-    // console.log(this.state.totalPrice)
   }
 
   render() {
     const data = this.props.event.dataEventById;
     let { quantity } = this.state;
     const price = data.price * quantity;
-    // const startTime = <Moment format="DD MMM YYYY">{data.startTime}</Moment>
-    // const timeStart = data.startTime
     return (
-      <div>
-        <div style={{ boxShadow: "black 0px 2px 12px 0px" }}>
-          <Container fluid style={{ backgroundColor: "#FF5555" }}>
-            <Header />
-          </Container>
-        </div>
-        <Container
-          fluid
-          style={{
-            // marginRight: "7%",
-            backgroundColor: "#F4E1E1",
-            paddingBottom: "3%",
-            paddingTop: "7%",
-            marginTop: "1%"
-          }}
-        >
-          <Grid>
-            <Card centered style={{ width: "82%" }}>
+      <div className="page-content" style={{ backgroundColor: "#F4E1E1" }}>
+        <Header />
+        <Container style={{ paddingTop: "7em" }}>
+          <Card.Group itemsPerRow={1}>
+            <Card centered>
               <Image src={data.image} wrapped ui={false} />
               <Card.Content>
                 <Card.Header>
-                  <Grid
-                    style={{
-                      fontSize: "3em",
-                      paddingTop: "14px",
-                      paddingLeft: "4%",
-                      paddingRight: "4%"
-                    }}
-                  >
-                    <Grid.Row columns={2}>
-                      <Grid.Column floated="left">{data.title}</Grid.Column>
-                      <Grid.Column
-                        floated="right"
-                        style={{ textAlign: "right", color: "#FF5555" }}
-                      >
-                        {price > 0 ? "Rp. " + price : "Free"}
+                  <Grid columns="equal" columns={2}>
+                    <Grid.Row>
+                      <Grid.Column floated="left">
+                        <Container fluid>
+                          <p>{data.title}</p>
+                        </Container>
+                      </Grid.Column>
+                      <Grid.Column floated="right">
+                        <Container fluid textAlign="right">
+                          <p style={{ color: "#FF5555" }}>
+                            {price > 0 ? "Rp. " + price : "Free"}
+                          </p>
+                        </Container>
                       </Grid.Column>
                     </Grid.Row>
                   </Grid>
-                  <Grid style={{ paddingLeft: "4%", paddingRight: "4%" }}>
-                    <Grid.Row columns={2}>
-                      <Grid.Column
-                        style={{ color: "#FF5555", fontSize: "25px" }}
-                      >
-                        {data.CategoryId && data.CategoryId.name}
-                      </Grid.Column>
-                      <Grid.Column
-                        floated="right"
-                        style={{ textAlign: "right" }}
-                      >
-                        <Button
-                          size="medium"
-                          icon="minus"
-                          onClick={quantity === 1 ? null : this.decrementCount}
-                        ></Button>
-                        <span
-                          style={{ paddingLeft: "5px", paddingRight: "8px" }}
-                        >
-                          {quantity}
-                        </span>
-                        <Button
-                          size="medium"
-                          icon="plus"
-                          onClick={this.incrementCount}
-                        ></Button>
-                        {localStorage.getItem("token") ? (
+                  <Grid stackable>
+                    <Grid.Column
+                      width={6}
+                      style={{ color: "#FF5555", fontSize: "25px" }}
+                    >
+                      {data.CategoryId && data.CategoryId.name}
+                    </Grid.Column>
+                    <Grid.Column
+                      width={10}
+                      floated="right"
+                      style={{ textAlign: "right" }}
+                    >
+                      {localStorage.getItem("token") ? (
+                        <div>
                           <Button
                             size="medium"
+                            icon="minus"
+                            onClick={
+                              quantity === 1 ? null : this.decrementCount
+                            }
+                          ></Button>
+                          <span
+                            style={{ paddingLeft: "5px", paddingRight: "8px" }}
+                          >
+                            {quantity}
+                          </span>
+                          <Button
+                            size="small"
+                            icon="plus"
+                            onClick={this.incrementCount}
+                          ></Button>
+                          <Button
+                            size="small"
                             color="green"
                             onClick={this.handleBuy}
                           >
                             BUY
                           </Button>
-                        ) : (
-                          <Popup
-                            content="Login First"
-                            on="click"
-                            pinned
-                            trigger={
-                              <Button
-                                size="medium"
-                                color="green"
-                                // onClick={this.handleBuy}
-                                // disabled
-                              >
-                                BUY
-                              </Button>
-                            }
-                          />
-                        )}
-                      </Grid.Column>
-                    </Grid.Row>
+                        </div>
+                      ) : (
+                        <Container>
+                          <p>You must login first to buy this event</p>
+                        </Container>
+                      )}
+                    </Grid.Column>
                   </Grid>
                 </Card.Header>
               </Card.Content>
               <Card.Content>
-                <Grid
-                  centered
-                  columns={3}
-                  stackable
-                  stretched
-                  style={{
-                    paddingTop: "14px",
-                    paddingLeft: "4%",
-                    paddingRight: "4%"
-                  }}
-                >
-                  <Grid.Row style={{ fontSize: "20px" }}>
+                <Grid columns={3}>
+                  <Grid.Row>
                     <Grid.Column>
-                      <Container>
+                      {/* <Card.Content>
+                        <Card.Header>Hosted By</Card.Header>
+                      </Card.Content> */}
+
+                      {/* <Container>
                         <p
                           style={{
                             fontSize: "2.3em",
@@ -199,7 +167,7 @@ class DetailEvent extends Component {
                             color: "black"
                           }}
                         >
-                          Hosted By
+                          
                         </p>
                         <Image
                           src={data.createdBy && data.createdBy.image}
@@ -209,7 +177,7 @@ class DetailEvent extends Component {
                         <span style={{ fontSize: "2em" }}>
                           {data.createdBy && data.createdBy.name}
                         </span>
-                      </Container>
+                      </Container> */}
                     </Grid.Column>
                     <Grid.Column>
                       <Container>
@@ -270,7 +238,7 @@ class DetailEvent extends Component {
                 </Grid>
               </Card.Content>
             </Card>
-          </Grid>
+          </Card.Group>
           <Container
             fluid
             style={{ marginLeft: "7%", marginRight: "", paddingTop: "3em" }}
@@ -282,13 +250,22 @@ class DetailEvent extends Component {
             >
               <Grid.Row>
                 <Grid.Column width={8}>
-                  <div style={{ textAlign: "center", alignItems:"center" }}>EVENT DESCRIPTION</div>
+                  <div style={{ textAlign: "center", alignItems: "center" }}>
+                    EVENT DESCRIPTION
+                  </div>
                   <div>{data.title}</div>
                   <div style={{ fontSize: "20px" }}>{data.description}</div>
                 </Grid.Column>
                 <Grid.Column width={8}>
                   <div style={{ textAlign: "center" }}>LOCATION</div>
-                  <iframe style={{ width:"600px", height:"450px", frameborder:"0px"}} src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15863.145812678567!2d106.73525875!3d-6.2917732!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f0092fae80c5%3A0x439cd2b52dc67b80!2sJurang%20Mangu!5e0!3m2!1sen!2sid!4v1578121373064!5m2!1sen!2sid"></iframe>
+                  <iframe
+                    style={{
+                      width: "600px",
+                      height: "450px",
+                      frameborder: "0px"
+                    }}
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15863.145812678567!2d106.73525875!3d-6.2917732!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f0092fae80c5%3A0x439cd2b52dc67b80!2sJurang%20Mangu!5e0!3m2!1sen!2sid!4v1578121373064!5m2!1sen!2sid"
+                  ></iframe>
                   <div style={{ fontSize: "20px" }}>
                     {/* {data.description} */}
                   </div>
@@ -297,9 +274,7 @@ class DetailEvent extends Component {
             </Grid>
           </Container>
         </Container>
-        <Container fluid style={{ backgroundColor: "#FF5555" }}>
-          <Footer />
-        </Container>
+        <Footer />
       </div>
     );
   }

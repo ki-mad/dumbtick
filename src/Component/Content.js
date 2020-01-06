@@ -7,14 +7,29 @@ import { getEvent } from "../_actions/events";
 import moment from "moment";
 
 class Content extends Component {
+  constructor() {
+    super();
+    this.state = {
+      search: ""
+    };
+  }
+
   componentDidMount() {
     this.props.dispatch(getCategories());
     this.props.dispatch(getEvent());
   }
 
+  onChange = event => {
+    this.setState({ search: event.target.value });
+  };
+
   render() {
     const category = this.props.category.dataCategory;
     const event = this.props.event.dataEvent;
+    const { search } = this.state;
+    const filteredEvents = event.filter(event => {
+      return event.title.toLowerCase().indexOf(search.toLowerCase()) !== -1;
+    });
     const todayEvents = event.filter(event => {
       return (
         moment(new Date(event.startTime)).format("YYYY-MM-DD") ===
@@ -34,15 +49,15 @@ class Content extends Component {
 
     return (
       <div className="page-content" style={{ backgroundColor: "#F4E1E1" }}>
-        <Container style={{ paddingTop: "7em" }}>
+        <Container style={{ paddingTop: "7em", paddingBottom:"3em" }}>
           <Input style={style.input}
             transparent
             size="huge"
             fluid
             icon="search"
             placeholder="Search..."
+            onChange={this.onChange}
           />
-
           <Card.Group itemsPerRow={4}>
             {category.map((el, i) => (
               <Card href={`/category/${el.id}/event`}>
@@ -52,10 +67,24 @@ class Content extends Component {
               </Card>
             ))}
           </Card.Group>
+          {search ?  <Card.Group itemsPerRow={3}>
+            {filteredEvents &&
+              filteredEvents.map(item => (
+                <Cards
+                  id={item.id}
+                  title={item.title}
+                  image={item.image}
+                  description={item.description}
+                  price={item.price}
+                  date={item.startTime}
+                />
+              ))}
+          </Card.Group> :  
+          <div>
           <Container fluid>
             <Header style={style.header}>TODAY</Header>
           </Container>
-          <Card.Group itemsPerRow={3}>
+          <Card.Group itemsPerRow={4}>
             {todayEvents &&
               todayEvents.map(item => (
                 <Cards
@@ -87,7 +116,8 @@ class Content extends Component {
                   date={item.startTime}
                 />
               ))}
-          </Card.Group>
+          </Card.Group> 
+              </div> }
         </Container>
       </div>
     );
@@ -99,7 +129,8 @@ const style = {
     color: "#FF5555",
     fontSize: "3em",
     fontWeight: "bold",
-    marginTop: "1.5em"
+    marginTop: "1.5em",
+    marginBottom: "1.5em"
   },
 
   input: {

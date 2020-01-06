@@ -1,5 +1,14 @@
 import React, { Component } from "react";
-import { Grid, Image, Icon, Responsive, List, Header, Segment, Container } from "semantic-ui-react";
+import {
+  Grid,
+  Image,
+  Icon,
+  Responsive,
+  List,
+  Header,
+  Segment,
+  Container
+} from "semantic-ui-react";
 import logo from "../img/logodumbtick.png";
 
 class Footer extends Component {
@@ -59,41 +68,37 @@ class Footer extends Component {
       //     <div style={{ paddingBottom: "1%" }}>Copyright 2019 Dumb-Tick</div>
       //   </Grid.Row>
       // </Grid>
-        <Segment inverted vertical style={{ padding: "5em 0em", backgroundColor:"#FF5555" }}>
-          <Container>
-            <Grid divided inverted stackable>
-              <Grid.Row>
-                <Grid.Column width={3}>
-                  <Header inverted as="h4" content="About" />
-                  <List link inverted>
-                    <List.Item as="a">Sitemap</List.Item>
-                    <List.Item as="a">Contact Us</List.Item>
-                    <List.Item as="a">Religious Ceremonies</List.Item>
-                    <List.Item as="a">Gazebo Plans</List.Item>
-                  </List>
-                </Grid.Column>
-                <Grid.Column width={3}>
-                  <Header inverted as="h4" content="Services" />
-                  <List link inverted>
-                    <List.Item as="a">Banana Pre-Order</List.Item>
-                    <List.Item as="a">DNA FAQ</List.Item>
-                    <List.Item as="a">How To Access</List.Item>
-                    <List.Item as="a">Favorite X-Men</List.Item>
-                  </List>
-                </Grid.Column>
-                <Grid.Column width={7}>
-                  <Header as="h4" inverted>
-                    Footer Header
-                  </Header>
-                  <p>
-                    Extra space for a call to action inside the footer that
-                    could help re-engage users.
-                  </p>
-                </Grid.Column>
-              </Grid.Row>
-            </Grid>
-          </Container>
-        </Segment>
+      <Segment
+        inverted
+        vertical
+        style={{ padding: "5em 0em", backgroundColor: "#FF5555" }}
+      >
+        <Container>
+          <Grid divided inverted stackable columns="equal">
+            <Grid.Row>
+              <Grid.Column>
+                <Image src={logo} />
+                <Header inverted as="h4" content="About">
+                  dumb-tick - is a web-based platform that provides tickets for
+                  various events around sports, music, science and programming.
+                </Header>
+              </Grid.Column>
+              <Grid.Column>
+                <Header inverted as="h4" content="Services" >Link</Header>
+              </Grid.Column>
+              <Grid.Column>
+                <Header as="h4" inverted>
+                  Footer Header
+                </Header>
+                <p>
+                  Extra space for a call to action inside the footer that could
+                  help re-engage users.
+                </p>
+              </Grid.Column>
+            </Grid.Row>
+          </Grid>
+        </Container>
+      </Segment>
     );
   }
 }

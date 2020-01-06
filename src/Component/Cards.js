@@ -1,30 +1,89 @@
 import React, { Component } from "react";
-import { Card, Image, Button, Header } from "semantic-ui-react";
+import { Card, Image, Button, Icon } from "semantic-ui-react";
+// import favorite from "../img/favorite.png";
 import { Link } from "react-router-dom";
-import favorite from "../img/favorite.png";
 import Moment from "react-moment";
+import axios from "axios";
 
 class Cards extends Component {
+  constructor() {
+    super();
+    this.state = {
+      favorited: false
+    };
+  }
 
-  
+  handleFavorite = () => {
+    if (this.state.favorited) {
+      axios
+        .delete(
+          `https://dumbtickapi.herokuapp.com/api/v2/favorite/delete`,
+
+          {
+            user_id: localStorage.getItem("id"),
+            event_id: this.props.id
+          }
+        )
+        .then(res => {
+          this.setState({ favorited: res.data.isFav });
+          // window.location.reload();
+        });
+    } else {
+      axios
+        .post(`https://dumbtickapi.herokuapp.com/api/v2/favorite`, {
+          user_id: localStorage.getItem("id"),
+          event_id: this.props.id
+        })
+        .then(res => {
+          this.setState({ favorited: res.data.isFav });
+        });
+    }
+  };
+
+  componentDidMount() {
+    axios
+      .post(`https://dumbtickapi.herokuapp.com/api/v2/favorites`, {
+        user_id: localStorage.getItem("id"),
+        event_id: this.props.id
+      })
+      .then(res => {
+        this.setState({ favorited: res.data.isFav });
+      });
+  }
+
   render() {
     const lengthDescription = this.props.description.length;
     const description = this.props.description;
     const price = this.props.price;
+    console.log(this.state.favorite);
     return (
-      <Card href={`/event/${this.props.id}`} style={{ width: "347px" }}>
+      <Card style={{ width: "347px" }}>
         <Image
           src={this.props.image}
           style={{ height: "260px", width: "395px" }}
-          hei
         />
         <Card.Content>
-          <Button floated="right" circular style={{backgroundColor:"white"}}>
-          <Image size="mini" src={favorite} />
-
-          </Button>
-          <Card.Header style={{ fontSize: "2em"}}>
+          <Image floated="right" size="mini">
+            {this.state.favorited === true ? (
+              <Icon
+                link
+                name="heart"
+                color="red"
+                size="big"
+                onClick={this.handleFavorite}
+              ></Icon>
+            ) : (
+              <Icon link onClick={this.handleFavorite} name="heart outline" size="big" ></Icon>
+            )}
+          </Image>
+          <Card.Header style={{ fontSize: "2em" }}>
+            <Link
+              to={`/event/${this.props.id}`}
+              color="black"
+              style={{ color: "black" }}
+            >
               {this.props.title.substring(0, 15)}
+            </Link>
           </Card.Header>
           <Card.Meta
             style={{ color: "#FF5555", fontSize: "20px", paddingTop: "10px" }}

@@ -41,7 +41,7 @@ class MyTicket extends Component {
         >
           <Grid>
             <Grid.Row>
-              {data.map(item => (
+              {data == null ? data.map(item => (
                 <CardsTicket
                   id={item.id}
                   name={item.createdBy.username}
@@ -51,7 +51,7 @@ class MyTicket extends Component {
                   address={item.eventId.address}
                   status={item.status}
                 />
-              ))}
+              )) : null}
             </Grid.Row>
           </Grid>
         </Container>
@@ -65,7 +65,6 @@ class MyTicket extends Component {
 
 const mapStateToProps = state => {
   return {
-    // user: state.user
     payment: state.payment
   };
 };

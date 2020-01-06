@@ -1,21 +1,12 @@
 import React, { Component } from "react";
 import logo from "../img/logodumbtick.png";
-import {
-  Grid,
-  Menu,
-  Dropdown,
-  Image,
-  Container,
-  Input
-} from "semantic-ui-react";
-import { Link } from "react-router-dom";
+import { Menu, Dropdown, Image, Container } from "semantic-ui-react";
 import Login from "../Pages/Login";
 import Register from "../Pages/Register";
 
 class Header extends Component {
   handleLogout = () => {
     localStorage.clear();
-    // this.context.history.push("/")
     window.location.href = "/";
   };
 
@@ -36,11 +27,7 @@ class Header extends Component {
         <Container>
           <Menu.Menu>
             <Menu.Item header>
-              <Image
-                href="/"
-                size="tiny"
-                src={logo}
-              />
+              <Image href="/" size="tiny" src={logo} />
             </Menu.Item>
           </Menu.Menu>
           {localStorage.getItem("token") ? (
@@ -84,12 +71,6 @@ class Header extends Component {
 const style = {
   Menu: {
     backgroundColor: "#FF5555"
-    // paddingLeft: "5vw",
-    // paddingRight: "5vw"
-  },
-
-  container: {
-    // marginLeft: "3%"
   }
 };
 

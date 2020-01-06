@@ -66,7 +66,7 @@ class Payment extends Component {
               <Grid.Column style={style.column2}></Grid.Column>
             </Grid.Row>
             <Grid.Row style={{ backgroundColor: "white", paddingTop:"0" }}>
-              {data.map(item => ( 
+              {data == null ? data.map(item => ( 
                  <PaymentCard 
                 id={item.id}
                 name={item.createdBy.username}
@@ -78,7 +78,7 @@ class Payment extends Component {
                 address={item.eventId.address}
                 status={item.status}
                 />
-              ))}
+              )) : null}
             </Grid.Row>
           </Grid>
         </Container>

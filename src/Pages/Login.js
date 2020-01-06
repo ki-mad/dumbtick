@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 // import {Link} from 'react-router-dom';
-import { Button, Form, Modal, Grid } from "semantic-ui-react";
+import { Button, Form, Modal } from "semantic-ui-react";
 import axios from "axios";
 import { connect } from "react-redux";
 import { getLogin } from "../_actions/login";
