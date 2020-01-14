@@ -78,22 +78,41 @@ class Footer extends Component {
             <Grid.Row>
               <Grid.Column>
                 <Image src={logo} />
-                <Header inverted as="h4" content="About">
-                  dumb-tick - is a web-based platform that provides tickets for
-                  various events around sports, music, science and programming.
-                </Header>
+                <Container>
+                  <Header inverted as="h4">
+                    dumb-tick - is a web-based platform that provides tickets
+                    for various events around sports, music, science and
+                    programming.
+                  </Header>
+                </Container>
               </Grid.Column>
               <Grid.Column>
-                <Header inverted as="h4" content="Services" >Link</Header>
+                <Container>
+                  <Header inverted as="h2">
+                    Link
+                  </Header>
+                  <p>About Us</p>
+                  <p style={{ fontWeight: "900", paddingBottom: "2%" }}>
+                    Follow US On
+                  </p>
+                  <p>
+                    <Icon name="instagram"></Icon>Instagram
+                  </p>
+                  <p>
+                    <Icon name="twitter"></Icon>Twitter
+                  </p>
+                </Container>
               </Grid.Column>
               <Grid.Column>
-                <Header as="h4" inverted>
-                  Footer Header
-                </Header>
-                <p>
-                  Extra space for a call to action inside the footer that could
-                  help re-engage users.
-                </p>
+                <Container>
+                  <Header as="h2" inverted>
+                    Have A Question ?
+                  </Header>
+                  <Header as="h4" inverted>
+                    Dumb-tick
+                  </Header>
+                  <p>Email: support@dumbtick.com</p>
+                </Container>
               </Grid.Column>
             </Grid.Row>
           </Grid>

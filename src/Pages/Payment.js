@@ -1,90 +1,81 @@
 import React, { Component } from "react";
-import { Container, Grid} from "semantic-ui-react";
-import { connect } from 'react-redux'
+import { Container, Grid } from "semantic-ui-react";
+import { connect } from "react-redux";
 
-import Header from "../Component/Header";
+import Headers from "../Component/Headers";
 import Footer from "../Component/Footer";
 import PaymentCard from "../Component/PaymentCard";
 
-import { getPayment } from '../_actions/payment';
+import { getPayment } from "../_actions/payment";
 
 class Payment extends Component {
-
   componentDidMount() {
-    const id = localStorage.getItem("id")
-    console.log(id)
+    const id = localStorage.getItem("id");
+    console.log(id);
     this.props.dispatch(getPayment(id));
   }
 
-  
-
   render() {
-    const data = this.props.payment.dataPayment
-    console.log(data)
+    const data = this.props.payment.dataPayment;
+    console.log(data);
     return (
-      <div style={{position:"relative", minHeight:"100vh"}}>
-        <div style={{ boxShadow: "black 0px 2px 12px 0px" }}>
-          <Container fluid style={{ backgroundColor: "#FF5555" }}>
-            <Header />
-          </Container>
-        </div>
+      <div
+        style={{
+          position: "relative",
+          minHeight: "100vh",
+          backgroundColor: "#F4E1E1"
+        }}
+      >
+        <Headers />
         <Container
-          fluid
           style={{
             backgroundColor: "#F4E1E1",
-            paddingBottom: "3%",
-            marginTop: "1%",
-            paddingTop: "3%",
             minHeight: "100%",
-            height:"100%"
+            height: "100%",
+            paddingTop: "10em"
           }}
         >
-          <Grid style={style.grid}>
-            <Grid.Row>
-              <Grid.Column>
-                <Container fluid>
+          {/* <Container>
+            <p style={style.sectionTitle}>PAYMENT</p>
+          </Container> */}
+          <Grid centered>
+            <Grid.Row columns={2} style={{ paddingBottom: "0" }}>
+              <Grid.Column style={style.column}>
+                <Container>
                   <p
                     style={{
-                      color: "#FF5555",
-                      fontSize: "40px",
-                      fontWeight: "bold"
+                      fontSize: "2em",
+                      fontWeight: "bold",
+                      paddingTop: "1em",
+                      textAlign: "center"
                     }}
                   >
                     PAYMENT
                   </p>
                 </Container>
               </Grid.Column>
-            </Grid.Row>
-          </Grid>
-          <Grid style={style.grid}>
-            <Grid.Row columns={2} style={{paddingBottom:"0"}}>
-              <Grid.Column style={style.column}>
-                <Container>
-                  <p style={{fontSize:"30px", fontWeight:"bold", paddingTop:"23px"}}>PAYMENT</p>
-                </Container>
-              </Grid.Column>
               <Grid.Column style={style.column2}></Grid.Column>
             </Grid.Row>
-            <Grid.Row style={{ backgroundColor: "white", paddingTop:"0" }}>
-              {data == null ? data.map(item => ( 
-                 <PaymentCard 
-                id={item.id}
-                name={item.createdBy.username}
-                price={item.eventId.price}
-                qty={item.qty}
-                totalPrice={item.totalPrice}
-                title={item.eventId.title}
-                date={item.eventId.startTime}
-                address={item.eventId.address}
-                status={item.status}
+          </Grid>
+          <Grid centered column={1} style={{ backgroundColor: "white", marginBottom:"2em" }}>
+            <Grid.Row style={{ backgroundColor: "white", paddingTop: "0", paddingBottom:"2em"}}>
+              {data.map(item => (
+                <PaymentCard
+                  id={item.id}
+                  name={item.createdBy.username}
+                  price={item.eventId.price}
+                  qty={item.qty}
+                  totalPrice={item.totalPrice}
+                  title={item.eventId.title}
+                  date={item.eventId.startTime}
+                  address={item.eventId.address}
+                  status={item.status}
                 />
-              )) : null}
+              ))}
             </Grid.Row>
           </Grid>
         </Container>
-        <Container fluid style={{ backgroundColor: "#FF5555" }}>
-          <Footer />
-        </Container>
+        <Footer />
       </div>
     );
   }
@@ -99,7 +90,8 @@ const style = {
   sectionTitle: {
     color: "#FF5555",
     fontSize: "40px",
-    fontWeight: "900"
+    fontWeight: "900",
+    marginBottom: "1.5em"
   },
 
   paragraph: {
@@ -109,10 +101,8 @@ const style = {
 
   column: {
     backgroundColor: "#FF5555",
-    height: "100px",
-    color: "white",
-    verticalAlign: "middle",
-    textAlign: "center"
+    height: "7em",
+    color: "white"
   },
 
   column2: {

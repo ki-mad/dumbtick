@@ -6,11 +6,11 @@ import axios from "axios";
 
 class PaymentCard extends Component {
   putStatus = () => {
-    const id = this.props.id
-    axios.put(`http://localhost:5000/api/v2/payment/${id}`).then(
+    const id = this.props.id;
+    axios.put(`https://dumbtickapi.herokuapp.com/api/v2/payment/${id}`).then(
       res => {
         console.log(res);
-        window.location.reload()
+        window.location.reload();
       },
       err => {
         console.log("error", err);
@@ -22,7 +22,7 @@ class PaymentCard extends Component {
     this.putStatus();
   };
   render() {
-    const status = this.props.status
+    const status = this.props.status;
     // const data = this.props.user.dataUserById
     // const dateTime = this.props.date.subtring(12,16)
     return (
@@ -33,24 +33,24 @@ class PaymentCard extends Component {
               style={{
                 borderStyle: "solid",
                 borderColor: "#FF5555",
-                borderWidth: "40px"
+                borderWidth: "2em"
                 // borderLeftWidth: "45px"
               }}
             >
               <Grid columns={2} style={{ backgroundColor: "#BCBCBC" }}>
                 <Grid.Column floated="left">
                   <Container>
-                    <p style={{ fontSize: "25px", marginBottom: "0" }}>
+                    <p style={{ fontSize: "1.5em" }}>
                       {this.props.name}
                     </p>
-                    <p style={{ fontSize: "20px", color: "grey" }}>
+                    <p style={{ fontSize: "1.2em", color: "grey" }}>
                       {this.props.id}
                     </p>
                   </Container>
                 </Grid.Column>
                 <Grid.Column floated="right" textAlign="right">
                   <Container>
-                    <p style={{ fontSize: "17px" }}>
+                    <p style={{ fontSize: "1.2em" }}>
                       Face Value Rp.{this.props.price}
                     </p>
                     <p>-</p>
@@ -62,25 +62,25 @@ class PaymentCard extends Component {
                   <Container style={{ verticalAlign: "middle" }}>
                     <p
                       style={{
-                        fontSize: "40px",
+                        fontSize: "2em",
                         fontWeight: "bold",
-                        marginBottom: "2px"
+                        marginBottom: "0.2em"
                       }}
                     >
                       {this.props.title}
                     </p>
                     <p
                       style={{
-                        fontSize: "17px",
+                        fontSize: "1.5em",
                         color: "grey",
-                        marginBottom: "3px"
+                        marginBottom: "0.2em"
                       }}
                     >
                       <Moment format="ddd. DDD MMM YYYY">
                         {this.props.date}
                       </Moment>
                     </p>
-                    <p style={{ fontSize: "20px" }}>{this.props.address}</p>
+                    <p style={{ fontSize: "1.5em" }}>{this.props.address}</p>
                   </Container>
                 </Grid.Column>
                 <Grid.Column width={5} floated="right">
@@ -150,29 +150,35 @@ class PaymentCard extends Component {
                 </Grid.Column>
                 <Grid.Column floated="right" textAlign="right">
                   <Container>
-                    {status === "pending" ? <Button
-                      onClick={this.handlePress}
-                      size="big"
-                      style={{ backgroundColor: "#FF5555", color: "white" }}
-                    >
-                      CONFIRM
-                    </Button> : null }
-                    {status === "confirmed" ? <Button
-                      // onClick={this.handlePress}
-                      size="big"
-                      disabled
-                      style={{ backgroundColor: "yellow", color: "white" }}
-                    >
-                      PENDING
-                    </Button> : null }
-                    {status === "approved" ? <Button
-                      // onClick={this.handlePress}
-                      disabled
-                      size="big"
-                      style={{ backgroundColor: "#FF5555", color: "white" }}
-                    >
-                      APPROVED
-                    </Button> : null }
+                    {status === "pending" ? (
+                      <Button
+                        onClick={this.handlePress}
+                        size="big"
+                        style={{ backgroundColor: "#FF5555", color: "white" }}
+                      >
+                        CONFIRM
+                      </Button>
+                    ) : null}
+                    {status === "confirmed" ? (
+                      <Button
+                        // onClick={this.handlePress}
+                        size="big"
+                        disabled
+                        style={{ backgroundColor: "orange", color: "white" }}
+                      >
+                        PENDING
+                      </Button>
+                    ) : null}
+                    {status === "approved" ? (
+                      <Button
+                        // onClick={this.handlePress}
+                        disabled
+                        size="big"
+                        style={{ backgroundColor: "#FF5555", color: "white" }}
+                      >
+                        APPROVED
+                      </Button>
+                    ) : null}
                   </Container>
                 </Grid.Column>
               </Grid>

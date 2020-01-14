@@ -4,7 +4,7 @@ import { Menu, Dropdown, Image, Container } from "semantic-ui-react";
 import Login from "../Pages/Login";
 import Register from "../Pages/Register";
 
-class Header extends Component {
+class Headers extends Component {
   handleLogout = () => {
     localStorage.clear();
     window.location.href = "/";
@@ -35,15 +35,16 @@ class Header extends Component {
               <Menu.Item position="right">
                 <Dropdown pointing trigger={trigger} icon={null}>
                   <Dropdown.Menu style={{ marginLeft: "-17px" }}>
-                    <Dropdown.Item
+                    <Dropdown.Item icon="user"
                       href={`/profile/${localStorage.getItem("id")}`}
                       text="Profile"
                     />
-                    <Dropdown.Item href="/my_ticket" text="My Ticket" />
-                    <Dropdown.Item href={`/payment/${id}`} text="Payment" />
-                    <Dropdown.Item href="/add_event" text="Add Event" />
+                    <Dropdown.Item icon="ticket" href="/my_ticket" text="My Ticket" />
+                    <Dropdown.Item icon="payment" href={`/payment/${id}`} text="Payment" />
+                    <Dropdown.Item icon="calendar" href="/add_event" text="Add Event" />
                     <Dropdown.Divider />
                     <Dropdown.Item
+                      icon="share square outline"
                       text="Logout"
                       onClick={this.handleLogout}
                     ></Dropdown.Item>
@@ -74,4 +75,4 @@ const style = {
   }
 };
 
-export default Header;
+export default Headers;

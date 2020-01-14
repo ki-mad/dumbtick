@@ -1,14 +1,13 @@
 import React, { Component } from "react";
 import { Card, Image, Button, Icon } from "semantic-ui-react";
-// import favorite from "../img/favorite.png";
 import { Link } from "react-router-dom";
 import Moment from "react-moment";
 import axios from "axios";
 
-class Cards extends Component {
+class CardsFav extends Component {
   constructor() {
     super();
-    this.state = {  
+    this.state = {
       favorited: false
     };
   }
@@ -107,4 +106,4 @@ class Cards extends Component {
   }
 }
 
-export default Cards;
+export default CardsFav;

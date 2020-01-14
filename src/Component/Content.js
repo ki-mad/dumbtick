@@ -1,10 +1,12 @@
 import React, { Component } from "react";
 import { Card, Input, Container, Header } from "semantic-ui-react";
-import Cards from "./Cards";
 import { connect } from "react-redux";
 import { getCategories } from "../_actions/category";
 import { getEvent } from "../_actions/events";
 import moment from "moment";
+
+import Cards from "./Cards";
+import CardsCategory from "./CardsCategory";
 
 class Content extends Component {
   constructor() {
@@ -59,13 +61,20 @@ class Content extends Component {
             onChange={this.onChange}
           />
           <Card.Group itemsPerRow={4}>
-            {category.map((el, i) => (
+            {/* {category.map((el, i) => (
               <Card href={`/category/${el.id}/event`}>
                 <Card.Content>
                   <Card.Header textAlign="center">{el.name}</Card.Header>
                 </Card.Content>
               </Card>
-            ))}
+            ))} */}
+            {category.map(item => 
+              <CardsCategory
+              id={item.id}
+              name={item.name}
+              image={item.image}
+              />
+              )}
           </Card.Group>
           {search ?  <Card.Group itemsPerRow={3}>
             {filteredEvents &&

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Container, Grid } from "semantic-ui-react";
-import Header from "../Component/Header";
+import Headers from "../Component/Headers";
 import Footer from "../Component/Footer";
 import CardsTicket from "../Component/CardsTicket";
 import { connect } from "react-redux";
@@ -17,7 +17,7 @@ class MyTicket extends Component {
     console.log(data)
     return (
       <div style={{ backgroundColor: "#F4E1E1" }}>
-        <Header />
+        <Headers />
         <Container
           style={{
             width: "1700px",

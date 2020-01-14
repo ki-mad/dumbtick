@@ -1,5 +1,6 @@
 import { createStore, combineReducers, applyMiddleware } from "redux";
 import events from "../_reducers/events";
+import favorite from "../_reducers/favorite";
 import category from "../_reducers/category";
 import login from "../_reducers/login";
 import user from "../_reducers/user";
@@ -14,7 +15,8 @@ const reducers = combineReducers({
     events,
     login,
     user,
-    payment
+    payment,
+    favorite
 });
 
 //setup store redux

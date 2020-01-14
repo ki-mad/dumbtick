@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Container, Card, Message, Icon } from "semantic-ui-react";
-import Header from "../Component/Header";
+import Headers from "../Component/Headers";
 import Footer from "../Component/Footer";
 import Cards from "../Component/Cards";
 import { connect } from "react-redux";
@@ -54,7 +54,7 @@ class Category extends Component {
       case false:
         return (
           <div className="page-content" style={{ backgroundColor: "#F4E1E1" }}>
-            <Header />
+            <Headers />
             <Container
               style={{
                 paddingTop: "7em",

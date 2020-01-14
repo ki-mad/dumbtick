@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const RootPath = "https://dumbtickapi.herokuapp.com/api/v2";
+const RootPath = "http://localhost:5000/api/v2";
 
 const Get = path => {
   const promise = new Promise((resolve, reject) => {
@@ -45,8 +45,9 @@ const getEventById = id => Get(`event/${id}`);
 const getLogin = () => Get("/login");
 const getUserById = id => Get(`user/${id}`);
 const getCategoryById = id => Get(`category/${id}`);
-const getPayment = (id) => Get(`payment/${id}`)
-const getApprovedPayment = (id) => Get(`/payment/ticket/${id}`)
+const getPayment = (id) => Get(`payment/${id}`);
+const getApprovedPayment = (id) => Get(`/payment/ticket/${id}`);
+const getFavorite = (id) => Get(`favorites/${id}`);
 
 const API = {
   getCategories,
@@ -58,7 +59,8 @@ const API = {
   getCategoryById,
   postAddEvent,
   getPayment,
-  getApprovedPayment
+  getApprovedPayment,
+  getFavorite
 };
 
 export default API;

@@ -52,7 +52,7 @@ export default class Regis extends Component {
         err: false
       });
       axios
-        .post("http://localhost:5000/api/v2/register", {
+        .post("https://dumbtickapi.herokuapp.com/api/v2/register", {
           username: this.state.username,
           password: this.state.password,
           email: this.state.email,
@@ -75,7 +75,7 @@ export default class Regis extends Component {
     return (
       <Grid>
         <Modal
-          trigger={<Button>Register</Button>}
+          trigger={<Button inverted style={{backgroundColor:"#FF5555"}}>Register</Button>}
           closeIcon
           dimmer="blurring"
           style={{ position: "unset" }}

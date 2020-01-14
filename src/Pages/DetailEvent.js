@@ -1,14 +1,6 @@
 import React, { Component } from "react";
-import {
-  Container,
-  Card,
-  Image,
-  Grid,
-  Button,
-  Icon,
-  Popup
-} from "semantic-ui-react";
-import Header from "../Component/Header";
+import { Container, Card, Image, Grid, Button, Icon, Header } from "semantic-ui-react";
+import Headers from "../Component/Headers";
 import Footer from "../Component/Footer";
 import { connect } from "react-redux";
 import { getEventById } from "../_actions/events";
@@ -37,36 +29,68 @@ class DetailEvent extends Component {
     });
   };
 
-  postDataPayment = () => {
-    const event = this.props.event.dataEventById;
-    const ticketPrice = event.price;
-    const eventId = event.id;
-    let qty = this.state.quantity;
-    let total = qty * ticketPrice;
+  // postDataPayment = () => {
+  //   const event = this.props.event.dataEventById;
+  //   const ticketPrice = event.price;
+  //   const eventId = event.id;
+  //   let qty = this.state.quantity;
+  //   let total = qty * ticketPrice;
 
-    let dataPayment = {
-      event_id: eventId,
-      user_id: localStorage.getItem("id"),
-      status: "pending",
-      qty: qty,
-      totalPrice: total
-    };
+  //   let dataPayment = {
+  //     event_id: eventId,
+  //     user_id: localStorage.getItem("id"),
+  //     status: "pending",
+  //     qty: qty,
+  //     totalPrice: total
+  //   };
+  //   console.log(dataPayment);
 
-    axios.post("http://localhost:5000/api/v2/payment", dataPayment).then(
-      res => {
-        console.log(res);
-      },
-      err => {
-        console.log("error", err);
-      }
-    );
-  };
+  //   axios
+  //     .post("https://dumbtickapi.herokuapp.com/api/v2/payment", dataPayment)
+  //     .then(
+  //       res => {
+  //         console.log(res);
+  //       },
+  //       err => {
+  //         console.log("error", err);
+  //       }
+  //     );
+  // };
 
   handleBuy = () => {
-    const id = localStorage.getItem("id");
-    this.postDataPayment(id);
-    window.location.href = `/payment/${id}`;
-    console.log(this.state.payment);
+    if (localStorage.getItem("token")) {
+      const event = this.props.event.dataEventById;
+      const ticketPrice = event.price;
+      const eventId = event.id;
+      const id = localStorage.getItem("id");
+      let qty = this.state.quantity;
+      let total = qty * ticketPrice;
+
+      let dataPayment = {
+        event_id: eventId,
+        user_id: localStorage.getItem("id"),
+        status: "pending",
+        qty: qty,
+        totalPrice: total
+      };
+      // console.log(dataPayment);
+
+      axios
+        .post("https://dumbtickapi.herokuapp.com/api/v2/payment", dataPayment)
+        .then(
+          res => {
+            window.location = `/payment/${id}`;
+            console.log(res);
+          },
+          err => {
+            console.log("error", err);
+          }
+        );
+    }
+    // const id = localStorage.getItem("id");
+    // this.postDataPayment(id);
+    // window.location = `/payment/${id}`;
+    // console.log(this.state.payment);
   };
 
   componentDidMount() {
@@ -80,7 +104,7 @@ class DetailEvent extends Component {
     const price = data.price * quantity;
     return (
       <div className="page-content" style={{ backgroundColor: "#F4E1E1" }}>
-        <Header />
+        <Headers />
         <Container style={{ paddingTop: "7em" }}>
           <Card.Group itemsPerRow={1}>
             <Card centered>
@@ -103,10 +127,10 @@ class DetailEvent extends Component {
                       </Grid.Column>
                     </Grid.Row>
                   </Grid>
-                  <Grid stackable>
+                  <Grid columns="equal" columns={2}>
                     <Grid.Column
                       width={6}
-                      style={{ color: "#FF5555", fontSize: "25px" }}
+                      style={{ color: "#FF5555", fontSize: "1.2em" }}
                     >
                       {data.CategoryId && data.CategoryId.name}
                     </Grid.Column>
@@ -118,7 +142,7 @@ class DetailEvent extends Component {
                       {localStorage.getItem("token") ? (
                         <div>
                           <Button
-                            size="medium"
+                            size="small"
                             icon="minus"
                             onClick={
                               quantity === 1 ? null : this.decrementCount
@@ -152,127 +176,135 @@ class DetailEvent extends Component {
                 </Card.Header>
               </Card.Content>
               <Card.Content>
-                <Grid columns={3}>
-                  <Grid.Row>
-                    <Grid.Column>
-                      {/* <Card.Content>
-                        <Card.Header>Hosted By</Card.Header>
-                      </Card.Content> */}
-
-                      {/* <Container>
-                        <p
-                          style={{
-                            fontSize: "2.3em",
-                            fontWeight: "bold",
-                            color: "black"
-                          }}
-                        >
-                          
-                        </p>
-                        <Image
-                          src={data.createdBy && data.createdBy.image}
-                          size="small"
-                          verticalAlign="middle"
-                        />{" "}
-                        <span style={{ fontSize: "2em" }}>
-                          {data.createdBy && data.createdBy.name}
-                        </span>
-                      </Container> */}
-                    </Grid.Column>
-                    <Grid.Column>
-                      <Container>
-                        <p
-                          style={{
-                            fontSize: "2.3em",
-                            fontWeight: "bold",
-                            color: "black"
-                          }}
-                        >
-                          Date & Time
-                        </p>
-                      </Container>
+                <Grid columns="equal" columns={3} centered>
+                  <Grid.Column>
+                    <Card.Header
+                      style={{
+                        fontWeight: "bold",
+                        fontSize: "1.5em",
+                        marginBottom: "1em"
+                      }}
+                    >
+                      Hosted By
+                    </Card.Header>
+                    <Card.Description>
+                      <Image
+                        src={data.createdBy && data.createdBy.image}
+                        size="tiny"
+                      />
+                      <span style={{ paddingLeft: "1.2em" }}>
+                        {data.createdBy && data.createdBy.username}
+                      </span>
+                    </Card.Description>
+                  </Grid.Column>
+                  <Grid.Column>
+                    <Card.Header
+                      style={{
+                        fontWeight: "bold",
+                        fontSize: "1.5em",
+                        marginBottom: "1em"
+                      }}
+                    >
+                      Date & Time
+                    </Card.Header>
+                    <Card.Description>
                       <p>
-                        <div>
-                          <Icon name="calendar alternate outline"></Icon>
-                          <Moment format="DD MMM YYYY">
-                            {data.startTime}
-                          </Moment>{" "}
-                          - <Moment format="DD MMM YYYY">{data.endTime}</Moment>
-                        </div>
-                        <div>
-                          <Icon name="time"></Icon>
-                          {data.startTime &&
-                            data.startTime.substring(11, 16)} -{" "}
-                          {data.endTime && data.endTime.substring(11, 16)}
-                        </div>
+                        <Icon name="calendar alternate outline"></Icon>
+                        <Moment format="DD MMM YYYY">
+                          {data.startTime}
+                        </Moment> -{" "}
+                        <Moment format="DD MMM YYYY">{data.endTime}</Moment>
                       </p>
-                    </Grid.Column>
-                    <Grid.Column>
-                      <Container>
-                        <p
-                          style={{
-                            fontSize: "2.3em",
-                            fontWeight: "bold",
-                            color: "black"
-                          }}
-                        >
-                          Contact Person
-                        </p>
-                      </Container>
                       <p>
-                        <div>
-                          <Icon name="address card"></Icon>
-                          {data.createdBy && data.createdBy.username}
-                        </div>
-                        <div>
-                          <Icon name="phone"></Icon>
-                          {data.createdBy && data.createdBy.phonenumber}
-                        </div>
-                        <div>
-                          <Icon name="mail"></Icon>
-                          {data.createdBy && data.createdBy.email}
-                        </div>
+                        <Icon name="time"></Icon>
+                        {data.startTime &&
+                          data.startTime.substring(11, 16)} -{" "}
+                        {data.endTime && data.endTime.substring(11, 16)}
                       </p>
-                    </Grid.Column>
-                  </Grid.Row>
+                    </Card.Description>
+                  </Grid.Column>
+                  <Grid.Column>
+                    <Card.Header
+                      style={{
+                        fontWeight: "bold",
+                        fontSize: "1.5em",
+                        marginBottom: "1em"
+                      }}
+                    >
+                      Date & Time
+                    </Card.Header>
+                    <Card.Description>
+                      <p style={{ marginTop: "25px" }}>
+                        <Icon name="address card"></Icon>
+                        {data.createdBy && data.createdBy.username}
+                      </p>
+                      <p>
+                        <Icon name="phone"></Icon>
+                        {data.createdBy && data.createdBy.phonenumber}
+                      </p>
+                      <p>
+                        <Icon name="mail"></Icon>
+                        {data.createdBy && data.createdBy.email}
+                      </p>
+                    </Card.Description>
+                  </Grid.Column>
                 </Grid>
               </Card.Content>
             </Card>
           </Card.Group>
-          <Container
-            fluid
-            style={{ marginLeft: "7%", marginRight: "", paddingTop: "3em" }}
+          <Grid
+            divided
+            stackable
+            columns={2}
+            style={{ marginTop: "2em", marginBottom: "2em" }}
           >
-            <Grid
-              columns={2}
-              divided
-              style={{ marginLeft: "9%", marginRight: "" }}
-            >
-              <Grid.Row>
-                <Grid.Column width={8}>
-                  <div style={{ textAlign: "center", alignItems: "center" }}>
-                    EVENT DESCRIPTION
-                  </div>
-                  <div>{data.title}</div>
-                  <div style={{ fontSize: "20px" }}>{data.description}</div>
+            <Grid.Column style={{ textAlign: "center" }}>
+              <p>Event Description</p>
+              <p style={{ textAlign: "left" }}>{data.description}</p>
+            </Grid.Column>
+            <Grid.Column style={{ justifyContent: "center" }}>
+              <Header size="medium" textAlign="center">
+                Location
+              </Header>
+              <iframe
+                style={{
+                  width: "25em",
+                  height: "15em",
+                  frameborder: "0px"
+                }}
+                src={data.urlMaps}
+              ></iframe>
+              <Header size="medium" textAlign="center">
+                Share Event
+              </Header>
+              <Grid columns="divided" stretched stackable columns={3}>
+                <Grid.Column>
+                  <Button
+                    size="mini"
+                    color="twitter"
+                    icon="twitter"
+                    content="Twitter"
+                  />
                 </Grid.Column>
-                <Grid.Column width={8}>
-                  <div style={{ textAlign: "center" }}>LOCATION</div>
-                  <iframe
-                    style={{
-                      width: "600px",
-                      height: "450px",
-                      frameborder: "0px"
-                    }}
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15863.145812678567!2d106.73525875!3d-6.2917732!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f0092fae80c5%3A0x439cd2b52dc67b80!2sJurang%20Mangu!5e0!3m2!1sen!2sid!4v1578121373064!5m2!1sen!2sid"
-                  ></iframe>
-                  <div style={{ fontSize: "20px" }}>
-                    {/* {data.description} */}
-                  </div>
+                <Grid.Column>
+                  <Button
+                    size="mini"
+                    color="facebook"
+                    icon="facebook"
+                    content="Facebook"
+                  />
                 </Grid.Column>
-              </Grid.Row>
-            </Grid>
-          </Container>
+                <Grid.Column>
+                  <Button
+                    size="mini"
+                    color="grey"
+                    icon="paperclip"
+                    content="Copy Link"
+                  />
+                </Grid.Column>
+              </Grid>
+            </Grid.Column>
+          </Grid>
         </Container>
         <Footer />
       </div>
