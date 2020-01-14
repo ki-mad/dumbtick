@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 // import {Link} from 'react-router-dom';
-import { Button, Form, Modal } from "semantic-ui-react";
+import { Button, Form, Modal, Grid } from "semantic-ui-react";
 import axios from "axios";
 import { connect } from "react-redux";
 import { getLogin } from "../_actions/login";
@@ -41,7 +41,7 @@ class Login extends Component {
         err: false
       });
       axios
-        .post("http://localhost:5000/api/v2/login", {
+        .post("https://dumbtickapi.herokuapp.com/api/v2/login", {
           username: this.state.username,
           password: this.state.password
         })
@@ -73,7 +73,7 @@ class Login extends Component {
       <Modal
         style={{
           height: "480px",
-          position: "unset"
+          position: "unset",
         }}
         size="small"
         trigger={
@@ -86,11 +86,12 @@ class Login extends Component {
         }
         closeIcon
       >
-        <Form style={{ paddingTop: "80px" }}>
-          <Form.Field style={{ textAlign: "center" }}>
-            <h1>LOGIN</h1>
-          </Form.Field>
-          <Form.Field>
+         <Grid centered style={style.grid}>
+          <Form style={style.form}>
+            <Form.Field style={{ textAlign: "center" }}>
+              <h1>LOGIN</h1>
+            </Form.Field>
+            <Form.Field>
             <label>Username</label>
             <input
               type="text"
@@ -99,28 +100,44 @@ class Login extends Component {
               onChange={this.handleUsernameChange}
               required
             />
-          </Form.Field>
-          <Form.Field>
-            <label>Password</label>
-            <input
-              type="password"
-              placeholder="Password"
-              name="password"
-              onChange={this.handlePasswordChange}
-              required
-            />
-          </Form.Field>
-          {/* <div style={{textAlign:"center"}}> */}
-          <Button type="submit" onClick={this.handlePress}>
-            Submit
-          </Button>
-          {/* </div> */}
-          {this.state.error ? alert("All Field Required") : null}
-        </Form>
+            </Form.Field>
+            <Form.Field>
+              <label>Password</label>
+              <input
+                type="password"
+                placeholder="Password"
+                name="password"
+                onChange={this.handlePasswordChange}
+                required
+              />
+            </Form.Field>
+            <Form.Field style={{textAlign:"center"}}>
+              <Button primary type="submit" onClick={this.handlePress}>
+                Submit
+              </Button>
+            </Form.Field>
+            {this.state.error ? alert("All Field Required") : null}
+          </Form>
+        </Grid>
       </Modal>
     );
   }
 }
+
+const style = {
+  modal: {
+    height: "40em"
+  },
+
+  form: {
+    marginTop: "6em",
+    width: "30em",
+    textAlign: "left"
+  },
+  grid: {
+    paddingTop: "2em"
+  }
+};
 
 const mapStateToProps = state => {
   return {

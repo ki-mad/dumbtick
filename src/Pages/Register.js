@@ -75,13 +75,17 @@ export default class Regis extends Component {
     return (
       <Grid>
         <Modal
-          trigger={<Button inverted style={{backgroundColor:"#FF5555"}}>Register</Button>}
+          trigger={
+            <Button inverted style={{ backgroundColor: "#FF5555" }}>
+              Register
+            </Button>
+          }
           closeIcon
-          dimmer="blurring"
-          style={{ position: "unset" }}
+          // dimmer="blurring"
+          style={{ position: "unset", height: "35em" }}
         >
-          <Grid style={{ justifyContent: "center" }}>
-            <Form style={{ paddingTop: "80px" }}>
+          <Grid style={{ justifyContent: "center", verticalAlign: "middle" }}>
+            <Form style={style.form}>
               <Form.Field style={{ textAlign: "center" }}>
                 <h1>REGISTER</h1>
               </Form.Field>
@@ -125,12 +129,11 @@ export default class Regis extends Component {
                   required
                 />
               </Form.Field>
-              {/* <div style={{textAlign:"center"}}> */}
-              <Button type="submit" onClick={this.handlePress}>
-                Submit
-              </Button>
-              {/* </div> */}
-
+              <Form.Field style={{ textAlign: "center" }}>
+                <Button primary type="submit" onClick={this.handlePress}>
+                  Submit
+                </Button>
+              </Form.Field>
               {this.state.error ? alert("All Field Required") : <div></div>}
             </Form>
           </Grid>
@@ -139,3 +142,14 @@ export default class Regis extends Component {
     );
   }
 }
+
+const style = {
+  modal: {
+    height: "2em"
+  },
+
+  form: {
+    marginTop: "6em",
+    width: "30em"
+  }
+};

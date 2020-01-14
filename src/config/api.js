@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const RootPath = "http://localhost:5000/api/v2";
+const RootPath = "https://dumbtickapi.herokuapp.com/api/v2";
 
 const Get = path => {
   const promise = new Promise((resolve, reject) => {
